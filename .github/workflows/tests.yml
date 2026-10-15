@@ -43,7 +43,9 @@ jobs:
           python3 tools/generate_exchange_vectors.py --check
 
       - name: selected multi-contributor research intake
-        run: python3 tests/test_shared_research.py
+        run: |
+          python3 tests/test_shared_research.py
+          python3 tests/test_research_updates.py
 
       - name: frontend actual
         working-directory: web

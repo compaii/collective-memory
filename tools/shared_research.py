@@ -111,6 +111,18 @@ def inspect(config, participant, operation):
     return doc, digest(data)
 
 
+def check_content(config, rendered):
+    """Reuse the engine's reject-only scanner; it does not decide audience."""
+    import sys
+    os.environ.setdefault("MAPA_ROOT", str(config["corpus"]))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "mapa"))
+    from tier1 import SECRET_PATTERNS
+    if len(rendered) > LIMIT:
+        raise ValueError("Rendered contribution exceeds the size limit")
+    if any(pattern.search(rendered.decode()) for pattern in SECRET_PATTERNS):
+        raise ValueError("Contribution contains credential-shaped content")
+
+
 def accept(config, participant, operation, research, reason):
     """Manual curator action. Reindex remains the upstream librarian's action."""
     identifier(research)
@@ -129,15 +141,7 @@ def accept(config, participant, operation, research, reason):
                     "audience": "instance-participants", "human_verified": False}
         rendered = ("<!-- " + json.dumps(metadata, ensure_ascii=False, sort_keys=True).replace("-->", "-- >")
                     + " -->\n# " + doc["title"].replace("\n", " ") + "\n\n" + doc["body"] + "\n").encode()
-        # Reuse the engine's reject-only credential scanner before corpus intake.
-        import sys
-        os.environ.setdefault("MAPA_ROOT", str(root))
-        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "mapa"))
-        from tier1 import SECRET_PATTERNS
-        if len(rendered) > LIMIT:
-            raise ValueError("Rendered contribution exceeds the size limit")
-        if any(pattern.search(rendered.decode()) for pattern in SECRET_PATTERNS):
-            raise ValueError("Contribution contains credential-shaped content")
+        check_content(config, rendered)
         receipt_path = Path(config["receipts"]) / participant / (operation + ".json")
         if receipt_path.exists():
             receipt = json.loads(read_file(receipt_path))
@@ -168,6 +172,11 @@ def main():
     s.add_argument("--research", required=True); s.add_argument("--reason", required=True)
     s = commands.add_parser("search"); s.add_argument("query")
     s = commands.add_parser("read"); s.add_argument("id")
+    s = commands.add_parser("snapshot"); s.add_argument("--document", required=True, action="append")
+    s = commands.add_parser("apply-map"); s.add_argument("--file", required=True, type=Path)
+    s = commands.add_parser("map-update"); s.add_argument("id")
+    s = commands.add_parser("observe-map"); s.add_argument("id")
+    s.add_argument("--observation", required=True); s.add_argument("--reader-config", required=True, type=Path)
     commands.add_parser("health")
     a = p.parse_args(); config = json.loads(read_file(a.config))
     if a.command == "submit":
@@ -176,6 +185,16 @@ def main():
         result = inspect(config, a.participant, a.id)[0]
     elif a.command == "accept":
         result = accept(config, a.participant, a.id, a.research, a.reason)
+    elif a.command in {"snapshot", "apply-map", "map-update", "observe-map"}:
+        import research_updates as updates
+        if a.command == "snapshot":
+            result = updates.snapshot(config, a.document)
+        elif a.command == "apply-map":
+            result = updates.apply_map(config, json.loads(read_file(a.file)))
+        elif a.command == "map-update":
+            result = updates.status(config, a.id)
+        else:
+            result = updates.observe(config, a.id, a.observation, json.loads(read_file(a.reader_config)))
     else:
         path = "/health" if a.command == "health" else ("/search?" + urlencode({"q": a.query, "k": 15})
                 if a.command == "search" else "/doc?" + urlencode({"id": a.id}))

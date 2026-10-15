@@ -54,6 +54,89 @@ acceptance, not a claim that a retracted document remains served.
 
 ## Semantic map and publication
 
+### Selected snapshots and version-aware map changes
+
+The helper supports full-text snapshots of explicitly selected documents, with
+per-document SHA256 revisions and a stable observed index/UI generation:
+
+```sh
+python3 shared_research.py --config client.json snapshot \
+  --document mapa/proyectos/topic.md --document research/topic/participant/source.md
+```
+
+Each capture declares its selection and missing documents. It includes no Atlas
+graph and never claims a complete corpus or semantic coverage. The maximum is
+32 selected documents per capture, each bounded by the existing contribution
+size; split larger selections explicitly. A generation change during reading
+fails instead of mixing generations. Preserve the result outside public Git when
+the selected corpus is private. Nexus can project these exact documents and
+locators without inheriting a capped Atlas view as its complete inventory.
+
+Canonical map edits use the same curator authority and writer lock as acceptance
+and the finite librarian. `research_updates.py` must accompany the helper in the
+installed client directory; possessing it grants no curator paths or authority.
+Prepare a selected update as JSON:
+
+```json
+{
+  "schema": "collective-research.map-update/v1",
+  "operation": "selected-iteration-1",
+  "document": "mapa/proyectos/topic.md",
+  "expected_sha256": "the exact 64-character lowercase SHA256 of the previous map",
+  "body": "the complete revised authored map, including its existing frontmatter",
+  "reason": "Which selected interpretation or relationship changes, and why"
+}
+```
+
+```sh
+python3 tools/shared_research.py --config curator.json apply-map --file selected-update.json
+python3 tools/shared_research.py --config curator.json map-update selected-iteration-1
+```
+
+This does not edit Atlas JSON or the live published snapshot. The allowlist is
+`mapa/index.md` and Markdown under `mapa/proyectos/`, resolved into canonical
+overlays. Existing map identity/project remain stable. `source_paths` stays a
+bounded JSON list within the selected research/map namespace. A new map requires
+`expected_sha256: null` and an absent target; an existing map requires its exact
+current digest. If a Nexus view uses an older map, inspect/reconcile the new source
+before authoring another operation; never silently substitute the latest base.
+
+Before replacement, the helper retains immutable intended/prior bytes and the
+curator's reason outside the served corpus. The update then installs atomically
+under the existing writer lock, followed by an acceptance receipt. An identical
+retry recovers interruption after installation without repeating the effect.
+Once accepted, later retries report historical acceptance plus current source
+status, never overwrite a subsequent version. A conflicting ID/base fails closed.
+Unchanged bytes are explicitly reported with `changed: false` and cannot be
+counted as a new research result.
+
+This tool edits **authored interpretations**. An extracted relationship needing
+correction must identify its owning source; accepted originals remain immutable.
+Submit/accept a new attributed correction using the existing contribution route,
+then update the authored map to relate both versions. A semantic neighbor is not
+independent evidence, and a map revision does not validate its source claims.
+
+Acceptance still leaves `index_generation: null`. Perform the maintained finite
+rebuild/recovery below, then observe publication separately:
+
+```sh
+python3 tools/shared_research.py --config curator.json observe-map selected-iteration-1 \
+  --observation after-rebuild-1 --reader-config client.json
+```
+
+An observation checks exact published-snapshot and reader bytes, matching stable
+non-stale index/UI generations and the configured instance. Source acceptance,
+source currentness and reader visibility are separate fields. An unavailable
+reader, mismatched bytes or failed/stale UI never becomes success because a shell
+command exited zero. Keep failed observations; use a new observation ID after
+repair while retaining the same update operation ID. Reusing an observation ID
+returns its original observation, not a fresh check. Published document/map bytes
+do not prove that a capped Atlas graph displays every relationship; that separate
+limit is explicit in the receipt. Exact Nexus projection remains source-based.
+
+These are finite manual/owner operations. No scheduler, native model loop, peer
+attention or service-stop permission is created by a snapshot or update command.
+
 Author interpretations under `$MAPA_DATA/overlays/mapa/proyectos/*.md`, with
 stable `id`, explicit `project` and JSON `source_paths` in frontmatter. Relate
 questions, methods, evidence, alternatives and uncertainty. Index/map wrappers
