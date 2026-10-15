@@ -165,3 +165,6 @@ EXCEPT  vectors/exchange/v1/publication-receipt.json rules=5
 EXCEPT  vectors/exchange/v1/publication-reconciliation.json rules=5
 EXCEPT  vectors/exchange/v1/publication-request.json rules=5
 EXCEPT  vectors/exchange/v1/publication-review.json rules=5
+
+# Selected shared research instance documentation
+AUTHOR  -  docs/collective-research-status.md
