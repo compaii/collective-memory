@@ -138,6 +138,9 @@ def walk_repo(repo):
             not in (
                 ".git",
                 "node_modules",
+                # Installed dependencies are not public source inputs.
+                "venv",
+                ".venv",
                 "__pycache__",
                 ".pytest_cache",
                 ".mypy_cache",

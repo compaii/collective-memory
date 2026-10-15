@@ -168,3 +168,8 @@ EXCEPT  vectors/exchange/v1/publication-review.json rules=5
 
 # Selected shared research instance documentation
 AUTHOR  -  docs/collective-research-status.md
+
+# Explicit filesystem contribution intake; no identity or network publisher
+AUTHOR  -  tools/shared_research.py
+AUTHOR  -  tests/test_shared_research.py
+AUTHOR  -  docs/shared-research-operations.md
