@@ -25,7 +25,8 @@ def now():
 def document_id(value):
     if (not isinstance(value, str) or not value or len(value) > 1000
             or PurePosixPath(value).is_absolute() or PurePosixPath(value).as_posix() != value
-            or any(p in {".", ".."} or not re.fullmatch(r"[A-Za-z0-9._-]+", p) for p in value.split("/"))):
+            or any(p in {".", "..", ""} for p in value.split("/"))
+            or any(ord(c) < 32 or ord(c) == 127 or c == "\\" for c in value)):
         raise ValueError("Use a bounded corpus-relative document ID")
     return value
 

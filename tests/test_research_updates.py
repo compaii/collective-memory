@@ -187,7 +187,10 @@ class ResearchUpdatesTests(unittest.TestCase):
         self.assertEqual(original.read_text(), map_body())
 
     def test_new_map_requires_absence_and_noop_is_explicit(self):
-        command = {**self.command, "document": "mapa/proyectos/new.md", "expected_sha256": None}
+        # Upstream document IDs can contain spaces, commas and Unicode. Do not
+        # confuse logical operation-ID syntax with actual corpus filenames.
+        command = {**self.command, "document": "mapa/proyectos/Prueba, relación.md", "expected_sha256": None,
+                   "body": map_body(sources=["research/topic/one/Geometry, revisión.md"])}
         created = updates.apply_map(self.config, command)
         self.assertTrue(created["acceptance"]["changed"])
         with self.assertRaisesRegex(ValueError, "Stale map base"):
