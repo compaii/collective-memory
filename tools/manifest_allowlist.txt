@@ -171,5 +171,7 @@ AUTHOR  -  docs/collective-research-status.md
 
 # Explicit filesystem contribution intake; no identity or network publisher
 AUTHOR  -  tools/shared_research.py
+AUTHOR  -  tools/research_updates.py
 AUTHOR  -  tests/test_shared_research.py
+AUTHOR  -  tests/test_research_updates.py
 AUTHOR  -  docs/shared-research-operations.md

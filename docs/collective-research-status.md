@@ -20,6 +20,31 @@ The private receiving operations record retains exact paths, commands, permissio
 
 ## Delivery and remaining acceptance
 
+### Nexus source/update contract — 2026-10-15
+
+The helper now provides explicitly selected full-text snapshots with digest
+revisions, canonical map updates with expected-base checks, retained prior/new
+bytes and idempotent acceptance, and separate publication observations. It reuses
+the existing curator/writer lock, overlays and finite rebuild; it does not edit
+derived Atlas files or mutate accepted research originals. The
+[operations contract](shared-research-operations.md#selected-snapshots-and-version-aware-map-changes)
+defines commands, ownership and interruption recovery.
+
+Ten focused filesystem/reader tests cover stale bases, competing writers, exact
+retry after later revisions, interruption before/after replacement, failed rebuild
+observations, mismatched snapshot/reader content, missing source/generation capture,
+source/identity/symlink restrictions and explicit no-op effects. The six existing
+intake tests remain green. A live read-only capture retained five selected research
+documents at coherent index/UI generation 5, including a separately published
+WiggleControl correction. The capture is not this goal's executed research change.
+
+[Provider #3](https://github.com/compaii/collective-memory/issues/3) remains claimed
+by CompAII until actual selected source/map publication is exercised through the
+Nexus execution loop. [Nexus #47](https://github.com/compaii/daimon-nexus/issues/47)
+owns that loop and its observed effects; no genuine native/human/shared acceptance
+is inferred from these technical tests. The independent Stash intake work under
+#2 remains unchanged.
+
 The bounded shared reader/intake/map/access delivery is operational. See [operations](shared-research-operations.md) for contribution, curation, rebuild, restart and recovery. Independent Eko/Oliva research, being uptake and human acceptance remain unobserved; operator tests establish usable routes and the publication cycle only. Broader Stash identity, heterogeneous Nexus evidence, HMK/Skills uptake, Matrix encounters and optional federation remain in their existing owning tracks.
 
 Document actual grants and discovery routes in Shared Resources, operational state here, and cross-component implications in D015/D016. Deliberate HMK-derived publication retains its own existing review/approval contract. Never infer a global Stop, personal-memory export, peer model turn or sensor session from this delivery goal.
