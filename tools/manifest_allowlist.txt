@@ -175,3 +175,5 @@ AUTHOR  -  tools/research_updates.py
 AUTHOR  -  tests/test_shared_research.py
 AUTHOR  -  tests/test_research_updates.py
 AUTHOR  -  docs/shared-research-operations.md
+
+AUTHOR  -  tests/test_explicit_index_mode.py

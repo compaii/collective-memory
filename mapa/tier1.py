@@ -1334,10 +1334,10 @@ def health_dict():
         con.close()
     current = os.path.basename(os.path.realpath(MAPA))
     imode = meta.get("mode")
-    rt_vec = vector_available()
+    rt_vec = vector_available() if imode == "hybrid" else None
     return {
         "index_mode": imode,
-        "runtime_vector": "up" if rt_vec else "unavailable",
+        "runtime_vector": "not_probed" if rt_vec is None else "up" if rt_vec else "unavailable",
         "effective_mode": "hybrid" if (imode == "hybrid" and rt_vec) else "fts-only",
         "gpu_lock": {None: "unknown", True: "ok", False: "unavailable"}.get(_gpu_lock_ok, "unknown"),
         "model_device": _model_device or "not_loaded",

@@ -26,6 +26,7 @@ import tier1, sqlite3
 from unittest.mock import patch
 with patch.object(tier1, 'vector_available', side_effect=AssertionError('model discovery forbidden')):
     tier1.do_index('curated')
+    assert tier1.health_dict()['runtime_vector']=='not_probed'
 con=sqlite3.connect(tier1.DB)
 assert con.execute("select v from meta where k='mode'").fetchone()[0]=='fts-only'
 assert con.execute("select count(*) from chunks_fts where chunks_fts match 'oraclemarker'").fetchone()[0]>0
