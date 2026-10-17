@@ -1013,7 +1013,10 @@ def do_index(scope):
     policy = load_policy()
     phash = policy_hash(policy)
     _index_error = None
-    want_vec = vector_available()
+    index_mode = os.environ.get("MAPA_INDEX_MODE", "auto")
+    if index_mode not in ("auto", "fts-only"):
+        raise ValueError("MAPA_INDEX_MODE must be auto or fts-only")
+    want_vec = index_mode != "fts-only" and vector_available()
     dims = None
     cache = None
     if want_vec:
