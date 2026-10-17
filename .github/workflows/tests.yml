@@ -46,6 +46,7 @@ jobs:
         run: |
           python3 tests/test_shared_research.py
           python3 tests/test_research_updates.py
+          python3 tests/test_explicit_index_mode.py
 
       - name: frontend actual
         working-directory: web

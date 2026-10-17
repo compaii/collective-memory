@@ -179,3 +179,19 @@ runtime/model revision for reconstruction. If exchange publication has ever
 been enabled and its publication fence exists, follow `docs/exchange-v1.md`
 and `publication-recover` before reopening reads; do not remove the fence by hand.
 No exchange is enabled merely by deploying this filesystem workflow.
+
+### Explicit text-only publication
+
+For a large selected archive served through the text reader, the finite curator
+can set `MAPA_INDEX_MODE=fts-only` for that rebuild. This produces a complete
+lexical index without probing dependencies, loading an embedding model or
+computing vectors. The default `auto` preserves existing hybrid behavior when
+available; other values fail before publication. This setting is independent of
+`MAPA_SERVE_VECTOR`, which selects serving behavior rather than indexing work.
+
+Retain the coherent prior projection and the existing embedding cache. Changing
+index mode does not change source text, the model/provider, grants or the corpus
+selection. Record actual index/reader/UI mode and generation; do not call an
+FTS-only publication hybrid. A later explicitly selected hybrid rebuild can
+reuse the retained cache. Never manufacture a dependency/model failure merely
+to select the fallback path.
