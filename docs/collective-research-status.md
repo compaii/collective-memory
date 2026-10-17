@@ -48,3 +48,38 @@ is inferred from these technical tests. The independent Stash intake work under
 The bounded shared reader/intake/map/access delivery is operational. See [operations](shared-research-operations.md) for contribution, curation, rebuild, restart and recovery. Independent Eko/Oliva research, being uptake and human acceptance remain unobserved; operator tests establish usable routes and the publication cycle only. Broader Stash identity, heterogeneous Nexus evidence, HMK/Skills uptake, Matrix encounters and optional federation remain in their existing owning tracks.
 
 Document actual grants and discovery routes in Shared Resources, operational state here, and cross-component implications in D015/D016. Deliberate HMK-derived publication retains its own existing review/approval contract. Never infer a global Stop, personal-memory export, peer model turn or sensor session from this delivery goal.
+
+## Historical archive and personal selection — 2026-10-17
+
+Nicolás selected the identified historical research archive for this private
+instance, including his personal research. The private curator manifest retains
+original source hashes, authorship/dates, duplicate occurrences and disclosed
+local-route transformations. It is a research-report import, not a personal DMK
+database export, native-session import or redistribution of source books.
+
+460 accepted historical Markdown documents in 36 new topics and their source-linked
+maps are published at coherent non-stale index28/UI28: 534 indexed documents,
+6422 chunks. The private library lists all 460 imports within its complete
+531-document/map inventory, across 42 topics. All accepted file hashes match;
+selected exact reader reads match accepted bytes. Original dates/contradictions
+remain historical evidence rather than current revalidation.
+
+PR5 adds explicit text-only publication without model discovery/loading. The
+receiving index and reader are FTS-only; the earlier offline embedding cache and
+coherent generation27 checkpoint remain. An initial hybrid build was deliberately
+cancelled, and its partial index was not served. The finite explicit retry reports
+curated/Tier1ok/UIok. Current-head CI and the focused mode/contribution/update
+qualification pass. This avoids making bulk lexical publication wait for vectors.
+
+Nexus PR74/75 deliver active/archive/favorite selections keyed to the actual
+verified user, with original access and other users' choices preserved. Actual
+operator browser qualification passed the sequential favorite/archive/reload/read/
+reactivate journey and narrow/desktop inspection. Temporary operator access is
+revoked. No pair-wide preference binding or human phone acceptance is claimed.
+
+The Librarian role is intended to be transferable among authorized participants,
+not CompAII-exclusive. Eko/Oliva's present receiving routes remain read/proposal;
+actual curator/publication operations and independent receiving use are open
+under #2. The personal research website remains separate from the corpus;
+Daimon Homes site management is Cluster266. No new being or autonomous service
+was created, and publication does not establish another being's adoption.
